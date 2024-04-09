@@ -11,13 +11,13 @@ source "${plugin_dir}/lib/utils.bash"
 mkdir -p "$ASDF_DOWNLOAD_PATH"
 
 # TODO: Adapt this to proper extension and adapt extracting strategy.
-release_file="$ASDF_DOWNLOAD_PATH/$TOOL_NAME-$ASDF_INSTALL_VERSION.tgz"
+release_file="$ASDF_DOWNLOAD_PATH/$TOOL_NAME-$ASDF_INSTALL_VERSION"
 
 # Download tar.gz file to the download directory
 download_release "$ASDF_INSTALL_VERSION" "$release_file"
 
 #  Extract contents of tar.gz file into the download directory
-tar -zxvf "$release_file" -C "$ASDF_DOWNLOAD_PATH" || fail "Could not extract $release_file"
+mv "$release_file" "$ASDF_DOWNLOAD_PATH" || fail "Could not install $release_file"
 
 # Remove the tgz file since we don't need to keep it
 rm "$release_file"
