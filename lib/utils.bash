@@ -65,9 +65,13 @@ download_release() {
 	version="$1"
 	filename="$2"
 
+  if [[ $version != v* ]]; then
+    $version="v${version}"
+  fi
+
 	# TODO: Adapt the release URL convention for kops
 	# https://github.com/kubernetes/kops/releases/download/v1.28.4/kops-linux-amd64
-	url="$GH_REPO/releases/download/v${version}/kops-${platform}-${cpu}"
+	url="$GH_REPO/releases/download/${version}/kops-${platform}-${cpu}"
 
 	echo "* Downloading $TOOL_NAME release $version..."
 	curl "${curl_opts[@]}" -o "$filename" "$url" || fail "Could not download $url"
