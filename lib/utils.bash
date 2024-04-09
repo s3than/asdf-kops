@@ -66,7 +66,7 @@ download_release() {
 	filename="$2"
 
   if [[ $version != v* ]]; then
-    $version="v${version}"
+    version="v${version}"
   fi
 
 	# TODO: Adapt the release URL convention for kops
