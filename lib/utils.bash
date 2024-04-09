@@ -2,10 +2,10 @@
 
 set -euo pipefail
 
-# TODO: Ensure this is the correct GitHub homepage where releases can be downloaded for coredns.
+# TODO: Ensure this is the correct GitHub homepage where releases can be downloaded for kops.
 GH_REPO="https://github.com/kubernetes/kops"
-TOOL_NAME="coredns"
-TOOL_TEST="coredns version"
+TOOL_NAME="kops"
+TOOL_TEST="kops version"
 
 fail() {
 	echo -e "asdf-$TOOL_NAME: $*"
@@ -14,7 +14,7 @@ fail() {
 
 curl_opts=(-fsSL)
 
-# NOTE: You might want to remove this if coredns is not hosted on GitHub releases.
+# NOTE: You might want to remove this if kops is not hosted on GitHub releases.
 if [ -n "${GITHUB_API_TOKEN:-}" ]; then
 	curl_opts=("${curl_opts[@]}" -H "Authorization: token $GITHUB_API_TOKEN")
 fi
@@ -33,7 +33,7 @@ list_github_tags() {
 
 list_all_versions() {
 	# TODO: Adapt this. By default we simply list the tag names from GitHub releases.
-	# Change this function if coredns has other means of determining installable versions.
+	# Change this function if kops has other means of determining installable versions.
 	list_github_tags
 }
 
@@ -65,7 +65,7 @@ download_release() {
 	version="$1"
 	filename="$2"
 
-	# TODO: Adapt the release URL convention for coredns
+	# TODO: Adapt the release URL convention for kops
 	# https://github.com/kubernetes/kops/releases/download/v1.28.4/kops-linux-amd64
 	url="$GH_REPO/releases/download/v${version}/kops-${platform}-${cpu}"
 
@@ -86,7 +86,7 @@ install_version() {
 		mkdir -p "$install_path"
 		cp -r "$ASDF_DOWNLOAD_PATH"/* "$install_path"
 
-		# TODO: Assert coredns executable exists.
+		# TODO: Assert kops executable exists.
 		local tool_cmd
 		tool_cmd="$(echo "$TOOL_TEST" | cut -d' ' -f1)"
 		test -x "$install_path/$tool_cmd" || fail "Expected $install_path/$tool_cmd to be executable."
